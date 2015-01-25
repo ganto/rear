@@ -23,14 +23,14 @@ ProgressStart "Running archive operation"
 			case $RSYNC_PROTO in
 
 				(ssh)
-					Log $BACKUP_PROG "${BACKUP_RSYNC_OPTIONS[@]}" $(cat $TMP_DIR/backup-include.txt) "${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_PATH}/${RSYNC_PREFIX}/backup"
+					Log $BACKUP_PROG "${BACKUP_RSYNC_OPTIONS[@]}" $(cat $TMP_DIR/backup-include.txt) "${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_BACKUP_DIR}"
 					$BACKUP_PROG "${BACKUP_RSYNC_OPTIONS[@]}" $(cat $TMP_DIR/backup-include.txt) \
-					"${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_PATH}/${RSYNC_PREFIX}/backup"  #2>/dev/null
+					"${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_BACKUP_DIR}"  #2>/dev/null
 					;;
 
 				(rsync)
 					$BACKUP_PROG "${BACKUP_RSYNC_OPTIONS[@]}" $(cat $TMP_DIR/backup-include.txt) \
-					"${RSYNC_PROTO}://${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_PORT}/${RSYNC_PATH}/${RSYNC_PREFIX}/backup"
+					"${RSYNC_PROTO}://${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_PORT}/${RSYNC_BACKUP_DIR}"
 					;;
 
 			esac
@@ -58,7 +58,7 @@ check_remote_df() {
 }
 
 check_remote_du() {
-	x=$(ssh ${RSYNC_USER}@${RSYNC_HOST} du -sb ${RSYNC_PATH}/${RSYNC_PREFIX}/backup 2>/dev/null | awk '{print $1}')
+	x=$(ssh ${RSYNC_USER}@${RSYNC_HOST} du -sb ${RSYNC_BACKUP_DIR} 2>/dev/null | awk '{print $1}')
 	[[ -z "${x}" ]] && x=0
 	echo $x
 }

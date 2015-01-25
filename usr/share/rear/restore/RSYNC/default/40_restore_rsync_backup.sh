@@ -18,15 +18,15 @@ ProgressStart "Restore operation"
 			case $RSYNC_PROTO in
 
 				(ssh)
-					Log $BACKUP_PROG "${BACKUP_RSYNC_OPTIONS[@]}" "${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_PATH}/${RSYNC_PREFIX}/backup"/ /mnt/local/
+					Log $BACKUP_PROG "${BACKUP_RSYNC_OPTIONS[@]}" "${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_BACKUP_DIR}"/ /mnt/local/
 					$BACKUP_PROG "${BACKUP_RSYNC_OPTIONS[@]}" \
-					"${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_PATH}/${RSYNC_PREFIX}/backup"/ \
+					"${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_BACKUP_DIR}"/ \
 					/mnt/local/
 					;;
 
 				(rsync)
 					$BACKUP_PROG "${BACKUP_RSYNC_OPTIONS[@]}" \
-					"${RSYNC_PROTO}://${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_PORT}/${RSYNC_PATH}/${RSYNC_PREFIX}/backup"/ /mnt/local/
+					"${RSYNC_PROTO}://${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_PORT}/${RSYNC_BACKUP_DIR}"/ /mnt/local/
 					;;
 
 			esac

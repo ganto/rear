@@ -31,6 +31,7 @@ RSYNC_USER=
 RSYNC_HOST=
 RSYNC_PORT=873                  # default port (of rsync server)
 RSYNC_PATH=
+RSYNC_BACKUP_DIR=
 
 
 echo $BACKUP_URL | egrep -q '(::)'      # new style '::' means rsync protocol
@@ -71,11 +72,14 @@ case "$RSYNC_PROTO" in
 
 esac
 
+RSYNC_BACKUP_DIR=${RSYNC_PATH}/${RSYNC_PREFIX}/backup
+
 #echo RSYNC_PROTO=$RSYNC_PROTO
 #echo RSYNC_USER=$RSYNC_USER
 #echo RSYNC_HOST=$RSYNC_HOST
 #echo RSYNC_PORT=$RSYNC_PORT
 #echo RSYNC_PATH=$RSYNC_PATH
+echo RSYNC_BACKUP_DIR=$RSYNC_BACKUP_DIR
 
 # check if host is reachable
 if test "$PING" ; then
